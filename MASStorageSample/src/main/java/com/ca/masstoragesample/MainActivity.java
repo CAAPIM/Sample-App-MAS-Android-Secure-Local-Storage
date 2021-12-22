@@ -36,11 +36,13 @@ public class MainActivity extends AppCompatActivity {
     private Button save;
     private Button open;
 
+    public static boolean LOGIN_STATUS = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        LOGIN_STATUS = false;
         title = (EditText) findViewById(R.id.title);
         content = (EditText) findViewById(R.id.content);
         save = (Button) findViewById(R.id.save);
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         MAS.setAuthenticationListener(new MASAuthenticationListener() {
             @Override
             public void onAuthenticateRequest(Context context, long requestId, MASAuthenticationProviders providers) {
+                LOGIN_STATUS = true;
                 Intent loginIntent = new Intent(context, MASLoginActivity.class);
                 loginIntent.putExtra(MssoIntents.EXTRA_AUTH_PROVIDERS, providers);
                 loginIntent.putExtra(MssoIntents.EXTRA_REQUEST_ID, requestId);
