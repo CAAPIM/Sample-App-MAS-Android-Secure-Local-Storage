@@ -71,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (BuildConfig.DEBUG) {
+                    CountingIdlingResourceSingleton.increment();
+                }
                 storage.save(
                         title.getText().toString(),
                         content.getText().toString(),
@@ -83,12 +86,18 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         content.setText("");
+                                        if (BuildConfig.DEBUG) {
+                                            CountingIdlingResourceSingleton.decrement();
+                                        }
                                     }
                                 });
                             }
 
                             @Override
                             public void onError(Throwable e) {
+                                if (BuildConfig.DEBUG) {
+                                    CountingIdlingResourceSingleton.decrement();
+                                }
                             }
                         });
             }
@@ -98,6 +107,9 @@ public class MainActivity extends AppCompatActivity {
         open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (BuildConfig.DEBUG) {
+                    CountingIdlingResourceSingleton.increment();
+                }
                 storage.findByKey(title.getText().toString(),
                         MASConstants.MAS_USER | MASConstants.MAS_APPLICATION,
 
@@ -110,10 +122,16 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(Object result) {
                                 content.setText((String) result);
+                                if (BuildConfig.DEBUG) {
+                                    CountingIdlingResourceSingleton.decrement();
+                                }
                             }
 
                             @Override
                             public void onError(Throwable e) {
+                                if (BuildConfig.DEBUG) {
+                                    CountingIdlingResourceSingleton.decrement();
+                                }
                             }
                         });
             }
