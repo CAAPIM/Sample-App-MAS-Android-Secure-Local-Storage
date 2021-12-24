@@ -57,10 +57,14 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:gridlayout-v7:28.0.0'
-    implementation(name: 'mas-foundation-2.2.00', ext: 'aar')
-    implementation(name: 'masui-2.2.00', ext: 'aar')
-    implementation(name: 'mas-connecta-2.2.00', ext: 'aar')
-    implementation(name: 'mas-storage-2.2.00', ext: 'aar')
+    implementation 'com.ca.apim:mas-foundation:2.2.0'
+    implementation 'com.ca.apim:mas-connecta:2.2.0'
+    implementation 'com.ca.apim:mas-storage:2.2.0'
+    implementation 'com.ca.apim:masui:2.2.0'
+//    implementation(name: 'mas-foundation-2.2.00', ext: 'aar')
+//    implementation(name: 'masui-2.2.00', ext: 'aar')
+//    implementation(name: 'mas-connecta-2.2.00', ext: 'aar')
+//    implementation(name: 'mas-storage-2.2.00', ext: 'aar')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
