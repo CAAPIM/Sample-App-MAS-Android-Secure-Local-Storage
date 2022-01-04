@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         LOGIN_STATUS = false;
         title = (EditText) findViewById(R.id.title);
         content = (EditText) findViewById(R.id.content);
-        save = (Button) findViewById(R.id.save);
+        save = (Button) findViewById(R.id.saveButton);
         open = (Button) findViewById(R.id.open);
 
         MAS.start(this);

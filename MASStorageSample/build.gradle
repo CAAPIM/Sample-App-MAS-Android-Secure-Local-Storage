@@ -61,17 +61,10 @@ dependencies {
     implementation 'com.ca.apim:mas-connecta:2.2.0'
     implementation 'com.ca.apim:mas-storage:2.2.0'
     implementation 'com.ca.apim:masui:2.2.0'
-//    implementation(name: 'mas-foundation-2.2.00', ext: 'aar')
-//    implementation(name: 'masui-2.2.00', ext: 'aar')
-//    implementation(name: 'mas-connecta-2.2.00', ext: 'aar')
-//    implementation(name: 'mas-storage-2.2.00', ext: 'aar')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'androidx.test.espresso:espresso-idling-resource:3.4.0'
-//    //Using JCenter
-//    implementation 'com.ca:mas:2.1.00'
-//    implementation 'com.ca:masui:2.1.00'
 }
 repositories {
     jcenter()
