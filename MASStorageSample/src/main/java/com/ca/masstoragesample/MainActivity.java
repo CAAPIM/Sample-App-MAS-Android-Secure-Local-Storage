@@ -36,14 +36,16 @@ public class MainActivity extends AppCompatActivity {
     private Button save;
     private Button open;
 
+    public static boolean LOGIN_STATUS = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        LOGIN_STATUS = false;
         title = (EditText) findViewById(R.id.title);
         content = (EditText) findViewById(R.id.content);
-        save = (Button) findViewById(R.id.save);
+        save = (Button) findViewById(R.id.saveButton);
         open = (Button) findViewById(R.id.open);
 
         MAS.start(this);
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         MAS.setAuthenticationListener(new MASAuthenticationListener() {
             @Override
             public void onAuthenticateRequest(Context context, long requestId, MASAuthenticationProviders providers) {
+                LOGIN_STATUS = true;
                 Intent loginIntent = new Intent(context, MASLoginActivity.class);
                 loginIntent.putExtra(MssoIntents.EXTRA_AUTH_PROVIDERS, providers);
                 loginIntent.putExtra(MssoIntents.EXTRA_REQUEST_ID, requestId);
@@ -68,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (BuildConfig.DEBUG) {
+                    CountingIdlingResourceSingleton.increment();
+                }
                 storage.save(
                         title.getText().toString(),
                         content.getText().toString(),
@@ -80,12 +86,18 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         content.setText("");
+                                        if (BuildConfig.DEBUG) {
+                                            CountingIdlingResourceSingleton.decrement();
+                                        }
                                     }
                                 });
                             }
 
                             @Override
                             public void onError(Throwable e) {
+                                if (BuildConfig.DEBUG) {
+                                    CountingIdlingResourceSingleton.decrement();
+                                }
                             }
                         });
             }
@@ -95,6 +107,9 @@ public class MainActivity extends AppCompatActivity {
         open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (BuildConfig.DEBUG) {
+                    CountingIdlingResourceSingleton.increment();
+                }
                 storage.findByKey(title.getText().toString(),
                         MASConstants.MAS_USER | MASConstants.MAS_APPLICATION,
 
@@ -107,10 +122,16 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(Object result) {
                                 content.setText((String) result);
+                                if (BuildConfig.DEBUG) {
+                                    CountingIdlingResourceSingleton.decrement();
+                                }
                             }
 
                             @Override
                             public void onError(Throwable e) {
+                                if (BuildConfig.DEBUG) {
+                                    CountingIdlingResourceSingleton.decrement();
+                                }
                             }
                         });
             }
